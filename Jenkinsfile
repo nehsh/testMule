@@ -35,7 +35,7 @@ pipeline {
 							echo "Deploying to Mule"
 							echo 'Building project'
 							withCredentials([usernamePassword(credentialsId: 'anypoint-platform', usernameVariable: 'DEVOPSUSERNAME', passwordVariable: 'DEVOPSPASSWORD')]) {								
-								sh 'mvn -f $Maven_Settings package deploy -DmuleDeploy -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_CLOUDHUB_MULEVERSION} -Dcloudhub.applicationName=testMule-dev -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$env.DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$env.DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE} -Dcloudhub.workerType=${DEVOPS_CLOUDHUB_WORKERTYPE} -Dcloudhub.workers=${DEVOPS_CLOUDHUB_WORKERS} -Dcloudhub.environment=${DEVOPS_CLOUDHUB_ENVIRONMENT} -Dregion=${DEVOPS_REGION}' 																
+								sh 'mvn -s $Maven_Settings package deploy -DmuleDeploy -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_CLOUDHUB_MULEVERSION} -Dcloudhub.applicationName=testMule-dev -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$env.DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$env.DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE} -Dcloudhub.workerType=${DEVOPS_CLOUDHUB_WORKERTYPE} -Dcloudhub.workers=${DEVOPS_CLOUDHUB_WORKERS} -Dcloudhub.environment=${DEVOPS_CLOUDHUB_ENVIRONMENT} -Dregion=${DEVOPS_REGION}' 																
 							}
 							echo "Deployment completed"
 					   } 

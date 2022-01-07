@@ -44,7 +44,7 @@ pipeline {
 				    script {
 					    configFileProvider([configFile(fileId: 'b16cd1b3-6027-4042-af76-104f3e1f418e', variable: 'Maven_Settings')]){
 						    echo "downloading the artifact from Nexus"
-						    sh "curl -u $USERNAME:$PASSWORD http://35.202.86.163:32001/repository/beam_mulesoft_devops/com/beam/suntory/integration/testMule/$BUILD_NUMBER/*mule-application.jar --output Mulesoft.jar"
+						    sh "curl -k http://35.202.86.163:32001/repository/beam_mulesoft_devops/com/beam/suntory/integration/testMule/$BUILD_NUMBER/*mule-application.jar --output Mulesoft.jar"
 						    sh "ls -lrta"
 						    sh "pwd"}
 				    }

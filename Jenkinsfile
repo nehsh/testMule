@@ -44,7 +44,7 @@ pipeline {
 				    script {
 					    configFileProvider([configFile(fileId: 'b16cd1b3-6027-4042-af76-104f3e1f418e', variable: 'Maven_Settings')]){
 						    echo "downloading the artifact from Nexus"
-						    sh "curl -k http://35.202.86.163:32001/repository/beam_mulesoft_devops/com/beam/suntory/integration/testMule/$BUILD_NUMBER/*mule-application.jar --output Mulesoft.jar"
+						    sh "curl http://35.202.86.163:32001/repository/beam_mulesoft_devops/com/beam/suntory/integration/testMule/${pom.version}/testMule-${pom.version}-mule-application.jar --output Mulesoft.jar"
 						    sh "ls -lrta"
 						    sh "pwd"}
 				    }
@@ -58,7 +58,9 @@ pipeline {
 							echo 'Building project'
 							withCredentials([usernamePassword(credentialsId: 'anypoint-platform', usernameVariable: 'DEVOPSUSERNAME', passwordVariable: 'DEVOPSPASSWORD')]) {
 								sh "echo ${DEVOPSUSERNAME}"
-						                sh 'mvn -s $Maven_Settings mule:deploy -Dmule.artifact=*/testMule*.jar -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_CLOUDHUB_MULEVERSION} -Dcloudhub.applicationName=testMule-dev -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE} -Dcloudhub.workerType=${DEVOPS_CLOUDHUB_WORKERTYPE} -Dcloudhub.workers=${DEVOPS_CLOUDHUB_WORKERS} -Dcloudhub.environment=${DEVOPS_CLOUDHUB_ENVIRONMENT} -Dregion=${DEVOPS_REGION}' 																
+								sh "cd $WORKSPACE"
+								sh "pwd"
+						                sh 'mvn -s $Maven_Settings mule:deploy -Dmule.artifact=target/testMule*.jar -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_CLOUDHUB_MULEVERSION} -Dcloudhub.applicationName=testMule-dev -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE} -Dcloudhub.workerType=${DEVOPS_CLOUDHUB_WORKERTYPE} -Dcloudhub.workers=${DEVOPS_CLOUDHUB_WORKERS} -Dcloudhub.environment=${DEVOPS_CLOUDHUB_ENVIRONMENT} -Dregion=${DEVOPS_REGION}' 																
 							}
 							echo "Deployment completed"
 					   } 

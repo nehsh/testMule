@@ -47,7 +47,7 @@ pipeline {
 						    sh "cd $WORKSPACE"
 						    sh "ls -lrta"
 						    withCredentials([usernamePassword(credentialsId: 'nexus', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
-						    sh "curl -u $USERNAME:$PASSWORD http://35.202.86.163:32001/repository/beam_mulesoft_devops/com/beam/suntory/integration/testMule/$BUILD_ID/*mule-application.jar --output Mulesoft.jar"
+						    sh "curl -u $USERNAME:$PASSWORD http://35.202.86.163:32001/repository/beam_mulesoft_devops/com/beam/suntory/integration/testMule/1.0.0-29/testMule-1.0.0-29-mule-application.jar --output Mulesoft.jar"
 						    sh "ls -lrta"
 						    sh "pwd"}
 				    }
@@ -63,7 +63,7 @@ pipeline {
 								sh "echo ${DEVOPSUSERNAME}"
 								sh "cd $WORKSPACE"
 								sh "pwd"
-								sh 'mvn -s $Maven_Settings mule:deploy -Dmule.artifact=${WORKSPACE}/testMule*.jar -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_CLOUDHUB_MULEVERSION} -Dcloudhub.applicationName=testMule-dev -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE} -Dcloudhub.workerType=${DEVOPS_CLOUDHUB_WORKERTYPE} -Dcloudhub.workers=${DEVOPS_CLOUDHUB_WORKERS} -Dcloudhub.environment=${DEVOPS_CLOUDHUB_ENVIRONMENT} -Dregion=${DEVOPS_REGION}' 																
+								sh 'mvn -s $Maven_Settings mule:deploy -Dmule.artifact=${WORKSPACE}/target/Mulesoft.jar -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_CLOUDHUB_MULEVERSION} -Dcloudhub.applicationName=testMule-dev -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE} -Dcloudhub.workerType=${DEVOPS_CLOUDHUB_WORKERTYPE} -Dcloudhub.workers=${DEVOPS_CLOUDHUB_WORKERS} -Dcloudhub.environment=${DEVOPS_CLOUDHUB_ENVIRONMENT} -Dregion=${DEVOPS_REGION}' 																
 							}
 							echo "Deployment completed"
 					   } 

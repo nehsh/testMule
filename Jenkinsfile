@@ -42,7 +42,7 @@ pipeline {
 		    stage('Download from Nexus'){
 			    steps{
 				    script {
-					    pom = readFile file: "pom.xml";
+					   def pom = readFile file: 'pom.xml'
 					    configFileProvider([configFile(fileId: 'b16cd1b3-6027-4042-af76-104f3e1f418e', variable: 'Maven_Settings')]){
 						    echo "downloading the artifact from Nexus"
 						    sh "curl http://35.202.86.163:32001/repository/beam_mulesoft_devops/com/beam/suntory/integration/testMule/${pom.version}/testMule-${pom.version}-mule-application.jar --output Mulesoft.jar"

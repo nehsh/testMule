@@ -43,6 +43,13 @@ pipeline {
 		    stage('Download from Nexus'){
 			    steps{
 				    script {
+					    def getPomVersion(){
+                     script{
+                        pom = readMavenPom file: "pom.xml";
+                        findFiles(glob: "target/*${pom.packaging}*");
+                        pomversionName = pom.version;
+                        return pomversionName;
+                        }}
               pom = readMavenPom file: "pom.xml";
                         // Find built artifact under target folder
                        filesByGlob = findFiles(glob: "target/*${pom.packaging}*");
@@ -87,11 +94,5 @@ pipeline {
 				}
 			}				   
 	    }
-	def getPomVersion(){
-                     script{
-                        pom = readMavenPom file: "pom.xml";
-                        findFiles(glob: "target/*${pom.packaging}*");
-                        pomversionName = pom.version;
-                        return pomversionName;
-                        }}
+	
 	  }

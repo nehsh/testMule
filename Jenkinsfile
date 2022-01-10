@@ -48,7 +48,7 @@ pipeline {
 					        pom = readMavenPom(file: 'pom.xml')
 					        POM_ARTIFACTID = pom.getArtifactId()
 					        POM_VERSION = pom.getVersion()
-					        POM_VERSION = POM_VERSION.replaceAll("-\\$\\{buildNumber\\}","")
+					        POM_VERSION = POM_VERSION.replaceAll("-\\${buildNumber}","")
 					        echo "getVersion - ${POM_VERSION}"							
 							withCredentials([usernamePassword(credentialsId: 'anypoint-platform', usernameVariable: 'DEVOPSUSERNAME', passwordVariable: 'DEVOPSPASSWORD')]) {
 								sh "echo ${DEVOPSUSERNAME}"							

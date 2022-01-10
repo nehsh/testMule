@@ -62,11 +62,11 @@ pipeline {
 						    withCredentials([usernamePassword(credentialsId: 'nexus', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
 						    sh "curl -u $USERNAME:$PASSWORD http://35.202.86.163:32001/repository/beam_mulesoft_devops/com/beam/suntory/integration/testMule/${pom.version}/${pom.artifactId}-${pom.version}-${pom.packaging}.jar --output Mulesoft.jar"
 						    sh "ls -lrta"
-                  sh "pwd"}}
+					            sh "pwd"}}}
                else {
                             error "*** File: ${artifactPath}, could not be found";
                         }
-				    }
+				    
 			    }    
 			    }}
 			stage('Build and Deploy') {

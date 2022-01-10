@@ -87,4 +87,11 @@ pipeline {
 				}
 			}				   
 	    }
+	def getPomVersion(){
+                     script{
+                        pom = readMavenPom file: "pom.xml";
+                        findFiles(glob: "target/*${pom.packaging}*");
+                        pomversionName = pom.version;
+                        return pomversionName;
+                        }}
 	  }

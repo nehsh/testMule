@@ -47,8 +47,9 @@ pipeline {
 							echo 'Building project'
 					        pom = readMavenPom(file: 'pom.xml')
 					        POM_ARTIFACTID = pom.getArtifactId()
-					        POM_VERSION = pom.getVersion().replaceAll('${buildNumber}','')
-					        echo "getVersion - ${pom.getVersion().replaceAll('-${buildNumber}','')}"							
+					        POM_VERSION = pom.getVersion()
+					        POM_VERSION = POM_VERSION.replaceAll("-${buildNumber}","")
+					        echo "getVersion - ${POM_VERSION}"							
 							withCredentials([usernamePassword(credentialsId: 'anypoint-platform', usernameVariable: 'DEVOPSUSERNAME', passwordVariable: 'DEVOPSPASSWORD')]) {
 								sh "echo ${DEVOPSUSERNAME}"							
 								sh 'mvn -s $Maven_Settings mule:deploy -Dmule.artifact=${WORKSPACE}/target/${POM_ARTIFACTID}-${POM_VERSION}-${BUILD_NUMBER}-mule-application.jar -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_CLOUDHUB_MULEVERSION} -Dcloudhub.applicationName=testMule-dev -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE} -Dcloudhub.workerType=${DEVOPS_CLOUDHUB_WORKERTYPE} -Dcloudhub.workers=${DEVOPS_CLOUDHUB_WORKERS} -Dcloudhub.environment=${DEVOPS_CLOUDHUB_ENVIRONMENT} -Dregion=${DEVOPS_REGION}' 																

@@ -27,7 +27,18 @@ pipeline {
 					   } 
 				   }
 			   }
-			}		
+			}
+		    stage('Upload To Nexus') {
+				steps {
+					script {
+						configFileProvider([configFile(fileId: 'b16cd1b3-6027-4042-af76-104f3e1f418e', variable: 'Maven_Settings')]) {
+							echo "Build project/Uploading to nexus Begins"
+							sh "mvn -s $Maven_Settings clean package deploy -DbuildNumber=${env.BUILD_NUMBER} -Denv=dev -DskipMunitTests" 
+							echo "Build project/Uploading to nexus completed"
+					   } 
+				   }
+			   }
+			}
 						
 	stage('deploy to exchange and rtf'){
 		steps {

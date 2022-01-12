@@ -8,8 +8,7 @@ pipeline {
           _JAVA_OPTIONS="-Xmx2048M -XX:MaxPermSize=1024m"
           SONAR_RUNNER_OPTS="-Xms2048m -Xmx2048m -XX:MaxPermSize=2048m"
           NEXUS_VERSION = "nexus3"
-          NEXUS_PROTOCOL = "http"  
-          POM_VERSION = getPomVersion()
+          NEXUS_PROTOCOL = "http"      
         }		
 	    stages {
 			stage('Code Checkout') {
@@ -40,43 +39,7 @@ pipeline {
 				   }
 			   }
 			}
-		    stage('Download from Nexus'){
-			    steps{
-				    script {
-					    def getPomVersion(){
-                     script{
-                        pom = readMavenPom file: "pom.xml";
-                        findFiles(glob: "target/*${pom.packaging}*");
-                        pomversionName = pom.version;
-                        return pomversionName;
-                        }}
-              pom = readMavenPom file: "pom.xml";
-                        // Find built artifact under target folder
-                       filesByGlob = findFiles(glob: "target/*${pom.packaging}*");
-                        // Print some info from the artifact found
-                        echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-                        // Extract the path from the File found
-                       artifactPath = filesByGlob[0].path;
-                        // Assign to a boolean response verifying If the artifact name exists
-                        artifactExists = fileExists artifactPath;
-
-             if(artifactExists) {
-                            echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}"
-					    configFileProvider([configFile(fileId: 'b16cd1b3-6027-4042-af76-104f3e1f418e', variable: 'Maven_Settings')]){
-						    echo "downloading the artifact from Nexus"
-						    sh "cd $WORKSPACE"
-						    sh "ls -lrta"
-						    withCredentials([usernamePassword(credentialsId: 'nexus', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
-						    sh "curl -u $USERNAME:$PASSWORD http://35.202.86.163:32001/repository/beam_mulesoft_devops/com/beam/suntory/integration/testMule/${pom.version}/${pom.artifactId}-${pom.version}-${pom.packaging}.jar --output Mulesoft.jar"
-						    sh "ls -lrta"
-					            sh "pwd"}}}
-               else {
-                            error "*** File: ${artifactPath}, could not be found";
-                        }
-				    
-			    }    
-			    }}
-			stage('Build and Deploy') {
+			*/stage('Build and Deploy') {
 				steps {
 					script {
 						configFileProvider([configFile(fileId: 'b16cd1b3-6027-4042-af76-104f3e1f418e', variable: 'Maven_Settings')]) {
@@ -92,7 +55,15 @@ pipeline {
 					   } 
 				   }
 				}
-			}				   
-	    }
+			}*/
+	stage('deploy to exchange and rtf'){
+		steps {
+			script{
+				withCredentials([usernamePassword(credentialsId: 'anypoint-platform', usernameVariable: 'DEVOPSUSERNAME', passwordVariable: 'DEVOPSPASSWORD')]) {
+				sh "echo ${DEVOPSUSERNAME}"
+				sh "mvn clean package deploy -DbuildNumber=${env.BUILD_NUMBER} -Denv=dev -DskipMunitTests"
+				sh 'mvn clean deploy -DmuleDeploy -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_CLOUDHUB_MULEVERSION} -Dcloudhub.applicationName=testMule-dev -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE}'
+				}}}}
+				}
 	
 	  }

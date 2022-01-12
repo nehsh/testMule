@@ -31,25 +31,27 @@
 				<extensions>true</extensions>
 				<configuration>
 					<classifier>mule-application</classifier>
-				    <cloudHubDeployment>
-				      <uri>${Anypoint.uri}</uri>
-				      <muleVersion>${cloudhub.muleVersion}</muleVersion>
-				      <!-- <username>${username}</username>
-				      <password>${password}</password> -->
-				      <applicationName>${cloudhub.applicationName}</applicationName>
-				      <environment>${cloudhub.environment}</environment>
-				      <region>${region}</region>
-				      <workers>${cloudhub.workers}</workers>
-				      <workerType>${cloudhub.workerType}</workerType>
-				      <businessGroupId>${cloudhub.businessGroupId}</businessGroupId>
-				      <properties>
-				        <key>value</key>
-				      </properties>
-					  <connectedAppClientId>${cloudhub.connectedAppClientId}</connectedAppClientId>
-					  <connectedAppClientSecret>${cloudhub.connectedAppClientSecret}</connectedAppClientSecret>
-					  <connectedAppGrantType>${cloudhub.connectedAppGrantType}</connectedAppGrantType>
-					  <objectStoreV2>true</objectStoreV2>				      
-				    </cloudHubDeployment>
+					<runtimeFabricDeployment>
+						<uri>${Anypoint.uri}</uri>
+						<businessGroupId>${cloudhub.businessGroupId}</businessGroupId>
+						<muleVersion>${cloudhub.muleVersion}</muleVersion>
+						<connectedAppClientId>${cloudhub.connectedAppClientId}</connectedAppClientId>
+						<connectedAppClientSecret>${cloudhub.connectedAppClientSecret}</connectedAppClientSecret>
+						<connectedAppGrantType>client_credentials</connectedAppGrantType>
+						<applicationName>${cloudhub.applicationName}</applicationName>
+						<target>beam-dev-rtf-gke-cluster-pub</target>
+						<environment>${cloudhub.environment}</environment>
+						<provider>MC</provider>
+						<replicas>1</replicas>
+						<skipDeploymentVerification>true</skipDeploymentVerification>
+						<deploymentSettings>
+							<http>
+								<inbound>
+								<publicUrl>testMule-dev.beamsuntory.com</publicUrl>
+								</inbound>
+							</http>
+						</deploymentSettings>
+					</runtimeFabricDeployment>
 				</configuration>
 			</plugin>
 		</plugins>

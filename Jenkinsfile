@@ -38,7 +38,7 @@ pipeline {
 				configFileProvider([configFile(fileId: 'b16cd1b3-6027-4042-af76-104f3e1f418e', variable: 'Maven_Settings')]) {
 				withCredentials([usernamePassword(credentialsId: 'anypoint-platform', usernameVariable: 'DEVOPSUSERNAME', passwordVariable: 'DEVOPSPASSWORD')]) {
 				sh "echo ${DEVOPSUSERNAME}"
-				sh "mvn -s $Maven_Settings clean package deploy"
+				sh "mvn -s $Maven_Settings clean package -X deploy"
 				echo "exchange completed"
 			      }}}}}
 		    

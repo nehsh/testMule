@@ -74,11 +74,6 @@
 
 	<distributionManagement>
 		<repository>
-			<id>beam_mulesoft_devops</id>
-			<name>beam_mulesoft_devops</name>
-			<url>http://35.202.86.163:32001/repository/beam_mulesoft_devops/</url>
-		</repository>
-		<repository>
 			<id>beam_mulesoft_exchange</id>
 			<name>beam_mulesoft_exchange</name>
 			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/3f00347a-d80d-48df-98e8-a8b65d91fc61/maven</url>

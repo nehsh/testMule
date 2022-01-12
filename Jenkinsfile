@@ -28,34 +28,7 @@ pipeline {
 				   }
 			   }
 			}		
-			stage('Upload To Nexus') {
-				steps {
-					script {
-						configFileProvider([configFile(fileId: 'b16cd1b3-6027-4042-af76-104f3e1f418e', variable: 'Maven_Settings')]) {
-							echo "Build project/Uploading to nexus Begins"
-							sh "mvn -s $Maven_Settings clean package deploy -DbuildNumber=${env.BUILD_NUMBER} -Denv=dev -DskipMunitTests" 
-							echo "Build project/Uploading to nexus completed"
-					   } 
-				   }
-			   }
-			}
-			*/stage('Build and Deploy') {
-				steps {
-					script {
-						configFileProvider([configFile(fileId: 'b16cd1b3-6027-4042-af76-104f3e1f418e', variable: 'Maven_Settings')]) {
-							echo "Deploying to Mule"
-							echo 'Building project'
-							withCredentials([usernamePassword(credentialsId: 'anypoint-platform', usernameVariable: 'DEVOPSUSERNAME', passwordVariable: 'DEVOPSPASSWORD')]) {
-								sh "echo ${DEVOPSUSERNAME}"
-								sh "cd $WORKSPACE"
-								sh "pwd"
-								sh 'mvn -s $Maven_Settings mule:deploy -Dmule.artifact=${WORKSPACE}/Mulesoft.jar -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_CLOUDHUB_MULEVERSION} -Dcloudhub.applicationName=testMule-dev -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE} -Dcloudhub.workerType=${DEVOPS_CLOUDHUB_WORKERTYPE} -Dcloudhub.workers=${DEVOPS_CLOUDHUB_WORKERS} -Dcloudhub.environment=${DEVOPS_CLOUDHUB_ENVIRONMENT} -Dregion=${DEVOPS_REGION}' 																
-							}
-							echo "Deployment completed"
-					   } 
-				   }
-				}
-			}*/
+						
 	stage('deploy to exchange and rtf'){
 		steps {
 			script{

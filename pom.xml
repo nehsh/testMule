@@ -4,7 +4,7 @@
 
 	<groupId>3f00347a-d80d-48df-98e8-a8b65d91fc61</groupId>
 	<artifactId>testMule</artifactId>
-	<version>1.0.0-${buildNumber}</version>
+	<version>1.1.0</version>
 	<packaging>mule-application</packaging>
 
 	<name>testMule</name>
@@ -22,7 +22,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.1;.0</version>
 			</plugin>
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
@@ -76,7 +76,7 @@
 		<repository>
 			<id>beam_mulesoft_exchange</id>
 			<name>beam_mulesoft_exchange</name>
-			<url>https://maven.anypoint.mulesoft.com/api/v1/organizations/3f00347a-d80d-48df-98e8-a8b65d91fc61/maven</url>
+			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/3f00347a-d80d-48df-98e8-a8b65d91fc61/maven</url>
 		</repository>
 	</distributionManagement>
 	

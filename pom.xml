@@ -30,28 +30,33 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<classifier>mule-application</classifier>
 					<runtimeFabricDeployment>
-					<uri>https://anypoint.mulesoft.com</uri>
-                                         <businessGroupId>3f00347a-d80d-48df-98e8-a8b65d91fc61</businessGroupId>
-                                         <muleVersion>4.4.0</muleVersion>
-                                         <connectedAppClientId>004d5f11b5cd4f2d956ce1201099ba76</connectedAppClientId>
-                                         <connectedAppClientSecret>beeaD9a6897d4c0b8Ea925fa0D091817</connectedAppClientSecret>
-                                          <connectedAppGrantType>client_credentials</connectedAppGrantType>
-                                      <applicationName>test-mule-dev-rtf-api</applicationName>
-                                      <target>beam-dev-rtf-gke-cluster-pub</target>
-                                       <environment>Dev</environment>
-                                        <provider>MC</provider>
-                                         <replicas>1</replicas>
-                                  <skipDeploymentVerification>true</skipDeploymentVerification>
-             <deploymentSettings>
-                          <http>
-                               <inbound>
-                                   <publicUrl>test-mule-dev-rtf-api.beamsuntory.com/*</publicUrl>
-                                    </inbound>
-                                 </http>
-                </deploymentSettings>
-				</runtimeFabricDeployment>	
+						<uri>${Anypoint.uri}</uri>
+						<businessGroupId>${cloudhub.businessGroupId}</businessGroupId>
+						<muleVersion>${cloudhub.muleVersion}</muleVersion>
+						<connectedAppClientId>${cloudhub.connectedAppClientId}</connectedAppClientId>
+						<connectedAppClientSecret>${cloudhub.connectedAppClientSecret}</connectedAppClientSecret>
+						<connectedAppGrantType>client_credentials</connectedAppGrantType>
+						<applicationName>${cloudhub.applicationName}</applicationName>
+						<target>beam-dev-rtf-gke-cluster-pub</target>
+						<environment>${cloudhub.environment}</environment>
+						<provider>MC</provider>
+						<replicas>1</replicas>
+						<deploymentSettings>
+							<http>
+								<inbound>
+								<publicUrl>test-mule-dev-rtf.beamsuntory.com/*</publicUrl>
+								</inbound>
+							</http>
+						</deploymentSettings>
+					</runtimeFabricDeployment>
+                                        <http>
+						<inbound>
+						<publicUrl>test-mule-dev-rtf.beamsuntory.com/*</publicUrl>
+						</inbound>
+					</http>
+						</deploymentSettings>
+					</runtimeFabricDeployment>	
 				</configuration>
 			</plugin>
 		</plugins>

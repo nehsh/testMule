@@ -4,7 +4,7 @@
 
 	<groupId>3f00347a-d80d-48df-98e8-a8b65d91fc61</groupId>
 	<artifactId>test-mule-dev-rtf-api</artifactId>
-	<version>1.1.9</version>
+	<version>1.2.0</version>
 	<packaging>mule-application</packaging>
 
 	<name>test-mule-dev-rtf-api</name>
@@ -13,7 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<app.runtime>4.3.0-20211026</app.runtime>
+		<app.runtime>4.4.0-20211026</app.runtime>
 		<mule.maven.plugin.version>3.5.2</mule.maven.plugin.version>
 	</properties>
 
@@ -34,7 +34,7 @@
 					<runtimeFabricDeployment>
 					<uri>https://anypoint.mulesoft.com</uri>
                                          <businessGroupId>3f00347a-d80d-48df-98e8-a8b65d91fc61</businessGroupId>
-                                         <muleVersion>4.3.0</muleVersion>
+                                         <muleVersion>4.4.0</muleVersion>
                                          <connectedAppClientId>004d5f11b5cd4f2d956ce1201099ba76</connectedAppClientId>
                                          <connectedAppClientSecret>beeaD9a6897d4c0b8Ea925fa0D091817</connectedAppClientSecret>
                                           <connectedAppGrantType>client_credentials</connectedAppGrantType>

@@ -30,8 +30,9 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<classifier>mule-application</classifier>
 					<runtimeFabricDeployment>
-						<uri>${Anypoint.uri}</uri>
+					        <uri>${Anypoint.uri}</uri>
 						<businessGroupId>${cloudhub.businessGroupId}</businessGroupId>
 						<muleVersion>${cloudhub.muleVersion}</muleVersion>
 						<connectedAppClientId>${cloudhub.connectedAppClientId}</connectedAppClientId>
@@ -49,8 +50,7 @@
 								</inbound>
 							</http>
 						</deploymentSettings>
-					</runtimeFabricDeployment>
-                                        <http>
+					<http>
 						<inbound>
 						<publicUrl>test-mule-dev-rtf.beamsuntory.com/*</publicUrl>
 						</inbound>

@@ -28,6 +28,13 @@ pipeline {
 				   }
 			   }
 			}
+		    stage('code quality check'){
+			    steps {
+				    script {
+					    configFileProvider([configFile(fileId: '5bddc05b-6648-42da-8916-73b4a94c5abb', variable: 'Maven_Settings1')]) {
+						  echo "sonar check"
+						  sh "mvn -Psonar:sonar"
+					    }}}}					    
 		    
 		    stage('deploy to exchange'){
 		     steps {
@@ -51,7 +58,7 @@ pipeline {
 				configFileProvider([configFile(fileId: '5bddc05b-6648-42da-8916-73b4a94c5abb', variable: 'Maven_Settings1')]) {
 				withCredentials([usernamePassword(credentialsId: 'anypoint-platform', usernameVariable: 'DEVOPSUSERNAME', passwordVariable: 'DEVOPSPASSWORD')]) {
 				sh "echo ${DEVOPSUSERNAME}"
-				sh "mvn -s $Maven_Settings1 deploy -DmuleDeploy -DskipMunitTests"
+				sh "mvn -s $Maven_Settings1 deploy -DmuleDeploy -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_CLOUDHUB_MULEVERSION} -Dcloudhub.applicationName=test-mule-dev-rtf-api -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE}"
 				}}}}}
 				}
 	

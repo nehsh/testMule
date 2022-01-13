@@ -43,7 +43,6 @@
 						<environment>${cloudhub.environment}</environment>
 						<provider>MC</provider>
 						<replicas>1</replicas>
-						<skipDeploymentVerification>false</skipDeploymentVerification>
 						<deploymentSettings>
 							<http>
 								<inbound>

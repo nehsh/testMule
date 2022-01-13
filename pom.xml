@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>3f00347a-d80d-48df-98e8-a8b65d91fc61</groupId>
-	<artifactId>testMuleRTF</artifactId>
+	<artifactId>test-mule-dev-rtf-api</artifactId>
 	<version>1.1.6</version>
 	<packaging>mule-application</packaging>
 
-	<name>testMuleRTF</name>
+	<name>test-mule-dev-rtf-api</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

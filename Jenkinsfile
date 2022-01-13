@@ -51,7 +51,7 @@ pipeline {
 				configFileProvider([configFile(fileId: '5bddc05b-6648-42da-8916-73b4a94c5abb', variable: 'Maven_Settings1')]) {
 				withCredentials([usernamePassword(credentialsId: 'anypoint-platform', usernameVariable: 'DEVOPSUSERNAME', passwordVariable: 'DEVOPSPASSWORD')]) {
 				sh "echo ${DEVOPSUSERNAME}"
-				sh "mvn -s $Maven_Settings1 clean -DmuleDeploy -DskipMunitTests"
+				sh "mvn -s $Maven_Settings1 deploy -DmuleDeploy -DskipMunitTests"
 				}}}}}
 				}
 	

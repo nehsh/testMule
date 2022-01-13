@@ -35,10 +35,10 @@ pipeline {
 			script{
 				//pom = readMavenPom(file: 'pom.xml')		
 			        //POM_ARTIFACTID = pom.getArtifactId().toString()
-				configFileProvider([configFile(fileId: '5bddc05b-6648-42da-8916-73b4a94c5abb', variable: 'Maven2-Settings')]) {
+				configFileProvider([configFile(fileId: '5bddc05b-6648-42da-8916-73b4a94c5abb', variable: 'Maven-Settings1')]) {
 				withCredentials([usernamePassword(credentialsId: 'anypoint-platform', usernameVariable: 'DEVOPSUSERNAME', passwordVariable: 'DEVOPSPASSWORD')]) {
 				sh "echo ${DEVOPSUSERNAME}"
-				sh "mvn -s $Maven2-Settings clean package -X deploy"
+				sh "mvn -s $Maven-Settings1 clean package -X deploy"
 				echo "exchange completed"
 			      }}}}}
 		    
@@ -47,10 +47,10 @@ pipeline {
 			script{
 				//pom = readMavenPom(file: 'pom.xml')		
 			        //POM_ARTIFACTID = pom.getArtifactId().toString()
-				configFileProvider([configFile(fileId: '5bddc05b-6648-42da-8916-73b4a94c5abb', variable: 'Maven2-Settings')]) {
+				configFileProvider([configFile(fileId: '5bddc05b-6648-42da-8916-73b4a94c5abb', variable: 'Maven-Settings1')]) {
 				withCredentials([usernamePassword(credentialsId: 'anypoint-platform', usernameVariable: 'DEVOPSUSERNAME', passwordVariable: 'DEVOPSPASSWORD')]) {
 				sh "echo ${DEVOPSUSERNAME}"
-				sh "mvn -s $Maven2-Settings clean -X deploy -DmuleDeploy -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_MULEVERSION} -Dcloudhub.applicationName=testMule-dev-rtf -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE}"
+				sh "mvn -s $Maven-Settings1 clean -X deploy -DmuleDeploy -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_MULEVERSION} -Dcloudhub.applicationName=testMule-dev-rtf -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE}"
 				}}}}}
 				}
 	

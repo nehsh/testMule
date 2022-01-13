@@ -4,7 +4,7 @@
 
 	<groupId>3f00347a-d80d-48df-98e8-a8b65d91fc61</groupId>
 	<artifactId>test-mule-dev-rtf-api</artifactId>
-	<version>1.2.0</version>
+	<version>1.2.1</version>
 	<packaging>mule-application</packaging>
 
 	<name>test-mule-dev-rtf-api</name>

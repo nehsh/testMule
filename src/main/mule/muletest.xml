@@ -1,23 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="97e35239-8f72-4723-9762-212719b0c109" basePath="/api/v1" >
-		<http:listener-connection host="0.0.0.0" port="8081" />
-	</http:listener-config>
-	<flow name="muletestFlow" doc:id="eefa1f33-89b0-46a0-8220-9b4e88982de7" >
-		<http:listener doc:name="Listener" doc:id="8b11dd09-6500-4afe-9b4d-884e6a561d39" config-ref="HTTP_Listener_config" path="/test"/>
-		<logger level="INFO" doc:name="Logger" doc:id="0a571ad2-4aeb-460e-8f78-087e253c72b0" message="This is DevOps Testing"/>
-		<ee:transform doc:name="Transform Message" doc:id="05b2bc40-bbfd-4e23-8098-2c6c829621c4" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-{"Status" : "Success"}]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
-	</flow>
+<?xml version="1.0" encoding="UTF-8"?><mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsdhttp://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="576db65d-5241-458d-87a6-e5a74f0520ff" >
+<http:listener-connection host="0.0.0.0" port="8081" />
+</http:listener-config>
+<flow name="hellortfapi" doc:id="2d7f1828-7fca-4e7f-8908-99ad89c0c7ef" >
+<http:listener doc:name="GET" doc:id="316e454a-90fd-4fad-be8f-fb8fbd327c48" config-ref="HTTP_Listener_config" path="/deploycheck" allowedMethods="GET"/>
+<set-payload value="Welcome to Runtime Fabric!" doc:name="welcome" doc:id="616dd363-2801-4cb1-b8a7-479085cd8299" mimeType="application/json"/>
+<logger level="INFO" doc:name="message.payload" doc:id="d9e9688e-3b65-408b-9876-60626d5335fc" message="#[message.payload]"/>
+</flow>
+<flow name="healthcheck-api">
+<http:listener config-ref="HTTP_Listener_config" path="/">
+<http:response statusCode="200"/>
+<http:error-response statusCode="500">
+<http:body><![CDATA[DOWN]]></http:body>
+</http:error-response>
+</http:listener>
+<set-payload value="UP" doc:name="UP"/>
+</flow>
 </mule>
+

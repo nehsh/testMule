@@ -31,7 +31,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<classifier>mule-application</classifier>
-					<runtimeFabricDeployment>
+					     <runtimeFabricDeployment>
 					        <uri>${Anypoint.uri}</uri>
 						<businessGroupId>${cloudhub.businessGroupId}</businessGroupId>
 						<muleVersion>${cloudhub.muleVersion}</muleVersion>
@@ -44,19 +44,13 @@
 						<provider>MC</provider>
 						<replicas>1</replicas>
 						<deploymentSettings>
-							<http>
-								<inbound>
-								<publicUrl>test-mule-dev-rtf.beamsuntory.com/*</publicUrl>
-								</inbound>
-							</http>
+						<http>
+							<inbound>
+							<publicUrl>test-mule-dev-rtf.beamsuntory.com/*</publicUrl>
+							</inbound>
+						</http>
 						</deploymentSettings>
-					<http>
-						<inbound>
-						<publicUrl>test-mule-dev-rtf.beamsuntory.com/*</publicUrl>
-						</inbound>
-					</http>
-						</deploymentSettings>
-					</runtimeFabricDeployment>	
+					   </runtimeFabricDeployment>	
 				</configuration>
 			</plugin>
 		</plugins>

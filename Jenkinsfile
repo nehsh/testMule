@@ -23,7 +23,7 @@ pipeline {
 							echo "Munit Execution Begins"
 							sh "mvn -s $Maven_Settings -Druntime.key=123 -DbuildNumber=${env.BUILD_NUMBER} -Denv=dev clean test" 
 							echo "Munit completed"
-							archiveArtifacts "target/munit-reports/coverage/**/*"
+							archive "target/munit-reports/coverage/**/*"
 					   } 
 				   }
 			   }

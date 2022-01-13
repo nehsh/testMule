@@ -28,13 +28,7 @@ pipeline {
 				   }
 			   }
 			}
-		    stage('code quality check'){
-			    steps {
-				    script {
-					    configFileProvider([configFile(fileId: '5bddc05b-6648-42da-8916-73b4a94c5abb', variable: 'Maven_Settings1')]) {
-						  echo "sonar check"
-						  sh "mvn -s $Maven_Settings1 -Psonar:sonar"
-					    }}}}					    
+		    				    
 		    
 		    stage('deploy to exchange'){
 		     steps {

@@ -30,18 +30,6 @@ pipeline {
 			}
 		    
 						
-	stage('deploy to exchange'){
-		steps {
-			script{
-				//pom = readMavenPom(file: 'pom.xml')		
-			        //POM_ARTIFACTID = pom.getArtifactId().toString()
-				configFileProvider([configFile(fileId: '5bddc05b-6648-42da-8916-73b4a94c5abb', variable: 'Maven_Settings1')]) {
-				withCredentials([usernamePassword(credentialsId: 'anypoint-platform', usernameVariable: 'DEVOPSUSERNAME', passwordVariable: 'DEVOPSPASSWORD')]) {
-				sh "echo ${DEVOPSUSERNAME}"
-				sh "mvn -s $Maven_Settings1 clean package deploy"
-				echo "exchange completed"
-			      }}}}}
-		    
 		    stage('deploy to rtf'){
 			    steps {
 			script{
@@ -50,7 +38,7 @@ pipeline {
 				configFileProvider([configFile(fileId: '5bddc05b-6648-42da-8916-73b4a94c5abb', variable: 'Maven_Settings1')]) {
 				withCredentials([usernamePassword(credentialsId: 'anypoint-platform', usernameVariable: 'DEVOPSUSERNAME', passwordVariable: 'DEVOPSPASSWORD')]) {
 				sh "echo ${DEVOPSUSERNAME}"
-				sh "mvn -s $Maven_Settings1 clean deploy -DmuleDeploy -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_MULEVERSION} -Dcloudhub.applicationName=test-mule-dev-rtf -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE}"
+				sh "mvn -s $Maven_Settings1 clean package deploy -DmuleDeploy -DskipMunitTests -Dcloudhub.muleVersion=${DEVOPS_MULEVERSION} -Dcloudhub.applicationName=test-mule-dev-rtf -DAnypoint.uri=${DEVOPS_MULE_ANYPOINT_URI} -Dcloudhub.businessGroupId=${DEVOPS_CLOUDHUB_BUSINESSGROUPID} -Dcloudhub.connectedAppClientId=$DEVOPSUSERNAME -Dcloudhub.connectedAppClientSecret=$DEVOPSPASSWORD -Dcloudhub.connectedAppGrantType=${DEVOPS_CLOUDHUB_CONNECTEDAPPGRANTTYPE}"
 				}}}}}
 				}
 	
